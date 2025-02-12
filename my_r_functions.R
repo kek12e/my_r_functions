@@ -59,7 +59,7 @@ per_sample_taxafilt <- function(psList, threshold=0.01, glom="none") {
       # 2.) set all tax ranks to "other"
       if(length(tn) > 0) {
         n.taxranks = ncol(tax_table(ps))
-        tax_table(ps)[tn,1:n.taxranks] = "other"
+        tax_table(ps)[tn,1:n.taxranks] = paste("other",threshold)
       }
       # 3.) glom
       if(glom != "none") {
