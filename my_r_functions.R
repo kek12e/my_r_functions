@@ -162,9 +162,9 @@ na_to_unclassified_taxa <- function(physeq, rank.start=1, glom=0) {
   return(ps)
 }
 
-make_cultivar_fungus = function(ps) {
+make_cultivar_fungus = function(ps, pfx = "") {
   ## defines "cultivar fungus" genus
-  ## input: phyloseq object
+  ## input: phyloseq object, optional filename prefix
   ## return: phyloseq object
   
   # check for NA's in Genus names
@@ -186,9 +186,7 @@ make_cultivar_fungus = function(ps) {
     cf.dnass = Biostrings::DNAStringSet(unlist(lapply(refseq(ps)[w.cf],toString)))
     fa.names = paste0(names(cf.dnass),"_"," ",tax_table(ps)[w.cf,"Genus"])
     names(cf.dnass) = fa.names
-    
-    # write to file
-    f = file.path(fna.dir,"cultivar_fungus_ASVs.fasta")
+    f = file.path(fna.dir, paste0(pfx,"cultivar_fungus_ASVs.fasta"))
     cat(">>> Writing file", f," ... ... ...\n")
     cf.dnass %>% Biostrings::writeXStringSet(f, format="fasta")
 
