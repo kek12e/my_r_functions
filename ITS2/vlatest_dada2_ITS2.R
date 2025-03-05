@@ -57,8 +57,7 @@ cutadapt.conda.n = "cutadapt"
 itsx.conda.n = "itsx"
 
 # path to database for taxa calling
-base.dir = "/home/kkyle/kek16SallITStrachyDecons/fastq/its2/dada2/"
-unite.ref = file.path(base.dir, "sh_general_release_dynamic_04.04.2024.fasta")
+unite.ref = "~/UNITEdb/sh_general_release_dynamic_04.04.2024.fasta"
 
 # directories for output files
 work.dir = "."
