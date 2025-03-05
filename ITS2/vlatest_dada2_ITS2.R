@@ -67,7 +67,7 @@ csv.dir = file.path(work.dir,"csv")
 fna.dir = file.path(work.dir,"fasta")
 rdat.dir = file.path(work.dir,"rdata")
 itsx.dir = file.path(work.dir, "itsx")
-for( d in c(pdf.dir,rds.dir,csv.dir,fna.dir,rdat.dir,tree.dir,itsx.dir) ){
+for( d in c(pdf.dir,rds.dir,csv.dir,fna.dir,rdat.dir,itsx.dir) ){
   if(!dir.exists(d))
     dir.create(d)
 }
