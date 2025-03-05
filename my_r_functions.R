@@ -45,46 +45,29 @@ taxnames_lt_threshold <- function(physeq, threshold=0.01) {
   return(tn)
 }
 
-per_sample_taxafilt <- function(psList, threshold=0.01, glom="none") {
-  ## requires ps to be relative abundance data
-  ## psList can be list of phloseq objects or an individual phyloseq object
+per_sample_taxafilt <- function(ps, threshold=0.01, glom="none") {
+  ## ps is a phyloseq object with a tax_table
   ## taxa less than threshold are set to "other $threshold" at all taxonomy ranks
   ## taxa are not glommed by default; set glom to tax_rank you want to glom at
   
-  if(is.list(psList)) {
-    for( i in seq_along(psList) ) {
-      ps = psList[[i]]
-      # 1.) ASVs to set to "other"
-      tn = taxnames_lt_threshold(ps, threshold)
-      # 2.) set all tax ranks to "other"
-      if(length(tn) > 0) {
-        n.taxranks = ncol(tax_table(ps))
-        tax_table(ps)[tn,1:n.taxranks] = paste("other",threshold)
-      }
-      # 3.) glom
-      if(glom != "none") {
-        ps = tax_glom(ps, glom)
-      }
-      # save
-      psList[[i]] = ps
-    }
-  } else {
-    ps = psList
-    # 1.) ASVs to set to "other"
-    tn = taxnames_lt_threshold(ps, threshold)
-    # 2.) set all tax ranks to "other"
-    if(length(tn) > 0) {
-      n.taxranks = ncol(tax_table(ps))
-      tax_table(ps)[tn,1:n.taxranks] = paste("other",threshold)
-    }
-    # 3.) glom
-    if(glom != "none") {
-      ps = tax_glom(ps, glom)
-    }
-    # save
-    psList = ps
+  ps.rab = ps
+  # 0.) check if rel abund
+  if( !all( sample_sums(ps) == 1 ) )
+    ps.rab = make_rel_abund(ps)
+  # 1.) ASVs to set to "other"
+  tn = taxnames_lt_threshold(ps.rab, threshold)
+  # 2.) set all tax ranks to "other"
+  if(length(tn) > 0) {
+    n.taxranks = ncol(tax_table(ps))
+    tax_table(ps)[tn,1:n.taxranks] = paste("other",threshold) # ex: "other 0.01"
   }
-  return(psList)
+  # 3.) glom
+  if( glom %in% rank_names(ps) ) {
+    cat("\n>>> Glomming by", glom, "... ... ...\n")
+    ps = tax_glom(ps, glom)
+  }
+  # save
+  return(ps)
 }
 
 make_rel_abund <- function(psList) {
