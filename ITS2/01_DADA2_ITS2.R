@@ -6,7 +6,7 @@
 
 ## suggested command(s) to run: 
 ##    ./00_fastp.bash
-##		./DADA2_ITS2.R > DADA2_ITS2.R.out 2>&1
+##    ./DADA2_ITS2.R > DADA2_ITS2.R.out 2>&1
 
 
 
