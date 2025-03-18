@@ -41,9 +41,9 @@ fnFs = sort(list.files(fqpath, pattern=R1.pattern, full.names=T))
 fnRs = sort(list.files(fqpath, pattern=R2.pattern, full.names=T))
 # process file names
 sample.names = sapply(strsplit(basename(fnFs),"_"),`[`,3)	# changed to 3rd substring for my files
-               # ^do strsplit to all fnFs            # ^save whatever comes between the 2nd "_" and 3rd "_"
-                                             # ^split file name at each "_"
 preprocc.str = sapply(strsplit(basename(fnFs),"_"),`[`,1)   # keep the prefix of the files for record keeping
+               # ^do strsplit to all fnFs            # ^save whatever comes before the first "_"
+                                             # ^split file name at each "_"
 
 # primer sequences for cutadapt 
   # fITS7: GTGARTCATCGAATCTTTG
