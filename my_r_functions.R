@@ -6,6 +6,18 @@
 # 
 # set.seed(14)
 
+my_load_libs <- function(libs) {
+  if(!require(pacman, quietly=T)) {
+	  install.packages("pacman")
+  }
+  library(pacman)
+  p_load(char=libs)
+
+  cat(">>> Libraries loaded:\n")
+  for( i in seq_along(libs) ) {
+	  cat("\t", libs[i], "version", as.character(packageVersion(libs[i])),"\n")
+  }
+}
 
 my_rarefy <- function(x, sample) {
   x <- x[x>0]
