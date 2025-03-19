@@ -5,6 +5,9 @@
 ######  SET THESE VARIABLES TO YOUR SPECIFICS   ##########################################################################################
 ##########################################################################################################################################
 
+# path to final phyloseq object from 01__DADA2_16Sv4.R
+ps.path = "./rds/ps.p.RDS"
+
 # how many threads when multithreading?
 n.threads = 20
 
@@ -39,7 +42,7 @@ for( i in seq_along(libs) ) {
 
 ## ---- DECONTAM ---------------------------------------------------------------------------- ##
 
-ps.p = readRDS("")
+ps.p = readRDS(ps.path)
 samdat = 
   data.frame( 
     "seq.id" = sample_names(ps.p), 
